@@ -1,3 +1,6 @@
+import { UP_VOTE_POST } from '../actions';
+import { DOWN_VOTE_POST } from '../actions';
+
 
 const postsInitialState = [
     {
@@ -24,8 +27,37 @@ const postsInitialState = [
     }
 ];
 
-const posts = (state = postsInitialState, action) => {
+const  posts = (state = postsInitialState, action) => {
+    
     switch(action.type){
+
+        case UP_VOTE_POST:
+            return (
+                state.map( post => {
+                    if(post.id !== action.postId){
+                        return post;
+                    } else {
+                        return {
+                            ...post,
+                            voteScore : ++post.voteScore
+                        }
+                    }
+                })
+            );
+
+            case DOWN_VOTE_POST:
+            return (
+                state.map( post => {
+                    if(post.id !== action.postId){
+                        return post;
+                    } else {
+                        return {
+                            ...post,
+                            voteScore : --post.voteScore
+                        }
+                    }
+                })
+            );
 
         default:
             return state;

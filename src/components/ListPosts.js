@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Post from './Post';
 
 const ListPosts = ({posts}) => {
 
     return (
         <ul>
-            { posts.map( post => <li>++{post.voteScore}--{post.title} : {post.category}</li> ) }
+            { posts.map( post => <Post post={post} /> ) }
         </ul>
     );
 }
