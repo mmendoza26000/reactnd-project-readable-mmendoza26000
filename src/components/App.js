@@ -7,11 +7,14 @@ import ListPosts from './ListPosts';
 import { sortBy } from 'lodash';
 import SortSelector from './SortSelector';
 
+import AppBar from 'material-ui/AppBar';
+
 const App = ({categories, categoryName, posts}) =>  {
 
     return (
       <div>
-          <h1>Category: {categoryName}</h1>
+           <AppBar 
+              title={categoryName === 'ALL_POSTS'?'All Posts':'Category: '+categoryName}  />
 
         <CategorySelector categories={categories} />
         <SortSelector />
@@ -22,8 +25,8 @@ const App = ({categories, categoryName, posts}) =>  {
 }
 
 function mapStateToProps({categories, posts, sortCriteria}, ownProps){
-    const categoryName = ownProps.match.params.categoryName
-    const filteredPosts = categoryName === undefined ? posts : posts.filter( post => post.category === categoryName )
+    const categoryName = ownProps.match.params.categoryName || 'ALL_POSTS'
+    const filteredPosts = categoryName === 'ALL_POSTS' ? posts : posts.filter( post => post.category === categoryName )
     const orderedPosts = sortCriteria.orderAsc ?
                             sortBy(filteredPosts, [sortCriteria.field]) :
                             sortBy(filteredPosts, [sortCriteria.field]).reverse();

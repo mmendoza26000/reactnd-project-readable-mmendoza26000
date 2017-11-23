@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { upVotePost, downVotePost } from '../actions';
+import { ListItem } from 'material-ui/List';
 
 const Post = ({post, upVotePost, downVotePost}) => {
 
