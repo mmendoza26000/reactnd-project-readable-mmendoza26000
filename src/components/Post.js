@@ -1,17 +1,29 @@
 import React from 'react';
+import './App.css';
+
 import { connect } from 'react-redux';
 import { upVotePost, downVotePost } from '../actions';
 import { ListItem } from 'material-ui/List';
+import ScoreDisplay from './ScoreDisplay';
+import Divider from 'material-ui/Divider';
 
 const Post = ({post, upVotePost, downVotePost}) => {
 
     return(
-        <li>
-            <div onClick={ ()=> upVotePost(post.id) }>++</div>
-            {post.voteScore}
-            <div onClick={ ()=> downVotePost(post.id) }>--</div>
-            {post.title} : {post.category}
-        </li>
+        <div>
+            <Divider/>
+            <ListItem  >
+                <div className="post-listitem" >
+                    <ScoreDisplay 
+                        upVotePost={upVotePost}
+                        downVotePost={downVotePost}
+                        voteScore={post.voteScore}
+                        postId={post.id}
+                    />
+                    {post.title} : {post.category}
+                </div>
+            </ListItem>
+        </div>
     )
 }
 

@@ -7,9 +7,9 @@ import {List} from 'material-ui/List';
 const ListPosts = ({posts}) => {
 
     return (
-        <ul>
+        <List>
             { posts.map( post => <Post post={post} /> ) }
-        </ul>
+        </List>
     );
 }
 
