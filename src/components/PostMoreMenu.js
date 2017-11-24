@@ -5,9 +5,9 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
-const PostMoreMenu = (props) => (
+const PostMoreMenu = ({postId}) => (
     <IconMenu
-      {...props}
+      
       iconButtonElement={
         <IconButton><MoreVertIcon /></IconButton>
       }
@@ -20,7 +20,7 @@ const PostMoreMenu = (props) => (
   );
 
   PostMoreMenu.propTypes = {
-      props: PropTypes.object.isRequired
+      postId: PropTypes.string.isRequired
   }
 
 export default PostMoreMenu;

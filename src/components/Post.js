@@ -8,7 +8,7 @@ import ScoreDisplay from './ScoreDisplay';
 import Divider from 'material-ui/Divider';
 
 import InsertComment from 'material-ui/svg-icons/editor/insert-comment';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+
 
 import PostMoreMenu from './PostMoreMenu';
 
@@ -38,7 +38,7 @@ const Post = ({post, upVotePost, downVotePost}) => {
                         <InsertComment /> {post.commentCount}
                     </div>
                     <div className="post-morevertmenucontainer">
-                        <PostMoreMenu />
+                        <PostMoreMenu postId={post.id} />
                     </div>
                     
                 </div>
