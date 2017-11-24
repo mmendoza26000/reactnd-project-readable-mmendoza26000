@@ -7,7 +7,7 @@ const FilterLink = ({ filter, children }) => {
   
 
 return(
-  <Chip className="filterlink-chip" style={{backgroundColor: 'DodgerBlue'}}>
+  <Chip className="filterlink-chip" style={{backgroundColor: '#00bcd4'}}>
     <NavLink
         to={filter === 'ALL_POSTS' ? '/' : `/${ filter }`}
         activeStyle={ {

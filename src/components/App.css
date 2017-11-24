@@ -88,3 +88,15 @@
 .filterlink-chip {
   margin: 4px !important;
 }
+
+.sortselector-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.sort-chip {
+  margin: 4px !important;
+}
