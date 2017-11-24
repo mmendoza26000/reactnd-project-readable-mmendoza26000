@@ -7,20 +7,40 @@ import { ListItem } from 'material-ui/List';
 import ScoreDisplay from './ScoreDisplay';
 import Divider from 'material-ui/Divider';
 
+import InsertComment from 'material-ui/svg-icons/editor/insert-comment';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+
+import PostMoreMenu from './PostMoreMenu';
+
 const Post = ({post, upVotePost, downVotePost}) => {
+
+    const scoreDisplay = <ScoreDisplay 
+                                upVotePost={upVotePost}
+                                downVotePost={downVotePost}
+                                voteScore={post.voteScore}
+                                postId={post.id}
+                            />
+
+
 
     return(
         <div>
             <Divider/>
             <ListItem  >
                 <div className="post-listitem" >
-                    <ScoreDisplay 
-                        upVotePost={upVotePost}
-                        downVotePost={downVotePost}
-                        voteScore={post.voteScore}
-                        postId={post.id}
-                    />
-                    {post.title} : {post.category}
+                    
+                    {scoreDisplay}
+                    <div className="post-infocontainer">
+                        <div className="post-title">{post.title}</div>
+                        <div className="post-author">{post.author}</div>
+                    </div>
+                    <div className="post-commentcontainer">
+                        <InsertComment /> {post.commentCount}
+                    </div>
+                    <div className="post-morevertmenucontainer">
+                        <PostMoreMenu />
+                    </div>
+                    
                 </div>
             </ListItem>
         </div>

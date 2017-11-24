@@ -33,9 +33,46 @@
   display: flex;
 }
 
+.post-infocontainer {
+  padding-left: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 8;
+}
+
+.post-title{
+  font-size: 16px;
+  padding-bottom: 5px;
+}
+
+.post-author {
+  font-size: 14px;
+  color: gray;
+}
+
+.post-commentcontainer {
+ 
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.post-morevertmenucontainer {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 2;
+}
+
 .scoredisplay-container {
-  text-align: center;
+  text-align: center; 
   border: 1px solid black;
   border-radius: 3px;
   background-color: #EEEEEE;
+  flex-grow: 1;
 }
