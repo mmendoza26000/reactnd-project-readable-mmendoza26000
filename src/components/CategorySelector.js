@@ -5,9 +5,9 @@ import FilterLink from './FilterLink';
 const CategorySelector = ({categories}) => {
 
     return (
-        <div>
+        <div className="categoryselector-container">
             Select category:
-            {' '} <FilterLink filter='ALL_POSTS'>All posts</FilterLink>
+            {' '} <FilterLink key="allPosts" filter='ALL_POSTS'>All posts</FilterLink>
             {
                 categories.map(
                     category => <FilterLink key={category.path} filter={category.path}>{category.name}</FilterLink>

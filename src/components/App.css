@@ -76,3 +76,15 @@
   background-color: #EEEEEE;
   flex-grow: 1;
 }
+
+.categoryselector-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.filterlink-chip {
+  margin: 4px !important;
+}
