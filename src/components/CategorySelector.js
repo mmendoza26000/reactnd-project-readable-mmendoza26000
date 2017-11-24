@@ -10,7 +10,7 @@ const CategorySelector = ({categories}) => {
             {' '} <FilterLink filter='ALL_POSTS'>All posts</FilterLink>
             {
                 categories.map(
-                    category => <FilterLink filter={category.path}>{category.name}</FilterLink>
+                    category => <FilterLink key={category.path} filter={category.path}>{category.name}</FilterLink>
                 )
             }
 

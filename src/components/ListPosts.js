@@ -8,7 +8,7 @@ const ListPosts = ({posts}) => {
 
     return (
         <List>
-            { posts.map( post => <Post post={post} /> ) }
+            { posts.map( post => <Post key={post.id} post={post} /> ) }
         </List>
     );
 }
