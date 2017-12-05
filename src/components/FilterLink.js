@@ -9,6 +9,8 @@ const FilterLink = ({ filter, children }) => {
 return(
   <Chip className="filterlink-chip" style={{backgroundColor: '#00bcd4'}}>
     <NavLink
+        exact
+        style={{textDecoration: 'none'}}
         to={filter === 'ALL_POSTS' ? '/' : `/${ filter }`}
         activeStyle={ {
           textDecoration: 'none',
