@@ -75,6 +75,7 @@
   border-radius: 3px;
   background-color: #EEEEEE;
   flex-grow: 1;
+  max-width: 56px;
 }
 
 .categoryselector-container {
