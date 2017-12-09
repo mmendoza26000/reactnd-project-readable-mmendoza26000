@@ -18,6 +18,7 @@ export const downVotePost = postId => {
     }
 }
 
+
 //Sorting
 export const SET_SORT_FIELD = 'SET_SORT_FIELD';
 

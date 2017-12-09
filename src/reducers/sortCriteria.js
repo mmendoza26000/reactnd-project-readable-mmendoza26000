@@ -5,6 +5,8 @@ const sortCriteriaInitialState = {
     orderAsc: false
 };
 
+// Default order is DESC. 
+//If the order field changes, the default order is applied.
 function sortCriteria(state = sortCriteriaInitialState, action){
     switch(action.type){
         case SET_SORT_FIELD:
