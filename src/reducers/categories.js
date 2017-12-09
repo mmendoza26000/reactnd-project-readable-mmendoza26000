@@ -1,12 +1,15 @@
+import { GET_CATEGORIES } from '../actions';
 
-const categoriesInitialState = [
-        {"name":"react","path":"react"},
-        {"name":"redux","path":"redux"},
-        {"name":"udacity","path":"udacity"}
-    ];
-
-const categories = (state = categoriesInitialState, action) => {
+const categories = (state = [], action) => {
     switch(action.type){
+
+        case GET_CATEGORIES:
+            return(
+                [
+                    ...state,
+                    ...action.categories
+                ]
+            );
 
         default:
             return state;

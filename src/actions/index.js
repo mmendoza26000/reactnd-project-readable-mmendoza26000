@@ -1,4 +1,4 @@
-
+import { fetchCategories, fetchPosts } from '../utils/api';
 
 //Posts
 export const UP_VOTE_POST = 'UP_VOTE_POST';
@@ -30,6 +30,44 @@ export const setSortField = sortField => {
 }
 
 
-// Categories
+//Fetching
+//Categories
+export const getAllCategories = () => {
+    
+    return dispatch => {
+        fetchCategories().then( result => {
+            dispatch(getCategories(result));
+        } )
+    }
+}
+
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 
+export const getCategories = newCategories => {
+    
+    return {
+        type: GET_CATEGORIES,
+        categories : newCategories
+    }
+}
+
+
+//Posts
+export const getAllPosts = () => {
+    
+    return dispatch => {
+        fetchPosts().then( result => {
+            dispatch(getPosts(result));
+        } )
+    }
+}
+
+export const GET_POSTS = 'GET_POSTS';
+
+export const getPosts = newPosts => {
+    
+    return {
+        type: GET_POSTS,
+        posts : newPosts
+    }
+}

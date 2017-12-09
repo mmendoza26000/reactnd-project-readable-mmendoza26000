@@ -3,21 +3,30 @@ import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import App from './App';
+import { getAllCategories, getAllPosts } from '../actions';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
-const Root = ({store}) => (
-    <Provider store={store}>
-        <MuiThemeProvider>
-            <Router>
-                <div>
-                    <Route path="/:categoryName?" component={App} />
-                </div>
-            </Router>
-        </MuiThemeProvider>
-    </Provider>
-)
+const Root = ({store}) => {
+
+    //Fetch initial data from server
+    store.dispatch(getAllCategories());
+    store.dispatch(getAllPosts());
+
+    return(
+        <Provider store={store}>
+            <MuiThemeProvider>
+                <Router>
+                    <div>
+                        <Route path="/:categoryName?" component={App} />
+                    </div>
+                </Router>
+            </MuiThemeProvider>
+        </Provider>
+    )
+
+}
 
 Root.propTypes = {
     store: PropTypes.object.isRequired
