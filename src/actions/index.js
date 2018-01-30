@@ -1,20 +1,28 @@
-import { fetchCategories, fetchPosts } from '../utils/api';
+import { fetchCategories, fetchPosts, changePostVote } from '../utils/api';
 
 //Posts
-export const UP_VOTE_POST = 'UP_VOTE_POST';
-export const DOWN_VOTE_POST = 'DOWN_VOTE_POST';
+export const UP_VOTE_POST = 'upVote';
+export const DOWN_VOTE_POST = 'downVote';
+export const SET_VOTE_SCORE = 'SET_VOTE_SCORE';
 
-export const upVotePost = postId => {
-    return {
-        type: UP_VOTE_POST,
-        postId
+
+export const votePost = (postId, upVoteFlg) => {
+
+    const voteType = upVoteFlg ? UP_VOTE_POST : DOWN_VOTE_POST;
+
+    return dispatch => {
+        changePostVote(postId, voteType)
+            .then( res => 
+                dispatch(setVoteScore(postId, res.voteScore))
+            )
     }
 }
 
-export const downVotePost = postId => {
+export const setVoteScore = (postId, voteScore) => {
     return {
-        type : DOWN_VOTE_POST,
-        postId
+        type: SET_VOTE_SCORE,
+        postId,
+        voteScore
     }
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 import { connect } from 'react-redux';
-import { upVotePost, downVotePost } from '../actions';
+import { votePost } from '../actions';
 import { ListItem } from 'material-ui/List';
 import ScoreDisplay from './ScoreDisplay';
 import Divider from 'material-ui/Divider';
@@ -49,8 +49,8 @@ const Post = ({post, upVotePost, downVotePost}) => {
 
 function mapDispatchToProps(dispatch) {
     return {
-        upVotePost: (postId) => dispatch(upVotePost(postId)),
-        downVotePost: (postId) => dispatch(downVotePost(postId))
+        upVotePost: (postId) => dispatch(votePost(postId, true)),
+        downVotePost: (postId) => dispatch(votePost(postId, false))
     }
 }
 //onClick={(post.id) => upVotePost(postId)} 

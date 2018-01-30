@@ -1,6 +1,5 @@
 import { 
-    UP_VOTE_POST, 
-    DOWN_VOTE_POST,
+    SET_VOTE_SCORE,
     GET_POSTS
 } from '../actions';
 
@@ -11,7 +10,7 @@ const  posts = (state = [], action) => {
     
     switch(action.type){
 
-        case UP_VOTE_POST:
+        case SET_VOTE_SCORE:
             return (
                 state.map( post => {
                     if(post.id !== action.postId){
@@ -19,25 +18,11 @@ const  posts = (state = [], action) => {
                     } else {
                         return {
                             ...post,
-                            voteScore : ++post.voteScore
+                            voteScore : action.voteScore
                         }
                     }
                 })
             );
-
-        case DOWN_VOTE_POST:
-            return (
-                state.map( post => {
-                    if(post.id !== action.postId){
-                        return post;
-                    } else {
-                        return {
-                            ...post,
-                            voteScore : --post.voteScore
-                        }
-                    }
-                })
-        );
 
         case GET_POSTS:
             return (
