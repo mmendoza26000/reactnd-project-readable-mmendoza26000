@@ -1,6 +1,7 @@
 import { 
     SET_VOTE_SCORE,
-    GET_POSTS
+    GET_POSTS,
+    ADD_POST_FROM_SERVER
 } from '../actions';
 
 
@@ -9,6 +10,12 @@ import {
 const  posts = (state = [], action) => {
     
     switch(action.type){
+
+        case ADD_POST_FROM_SERVER:
+            return([
+                ...state,
+                action.post
+            ])
 
         case SET_VOTE_SCORE:
             return (

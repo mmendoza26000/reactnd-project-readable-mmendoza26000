@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import App from './App';
+import AddPost from './AddPost';
 import { getAllCategories, getAllPosts } from '../actions';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -19,7 +20,8 @@ const Root = ({store}) => {
             <MuiThemeProvider>
                 <Router>
                     <div>
-                        <Route path="/:categoryName?" component={App} />
+                        <Route exact path="/:categoryName?" component={App} />
+                        <Route path="/addPost/:categoryName" component={AddPost} />
                     </div>
                 </Router>
             </MuiThemeProvider>

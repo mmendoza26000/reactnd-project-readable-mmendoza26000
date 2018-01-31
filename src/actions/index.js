@@ -1,9 +1,10 @@
-import { fetchCategories, fetchPosts, changePostVote } from '../utils/api';
+import { fetchCategories, fetchPosts, changePostVote, addPost } from '../utils/api';
 
 //Posts
 export const UP_VOTE_POST = 'upVote';
 export const DOWN_VOTE_POST = 'downVote';
 export const SET_VOTE_SCORE = 'SET_VOTE_SCORE';
+export const ADD_POST_FROM_SERVER = 'ADD_POST_FROM_SERVER';
 
 
 export const votePost = (postId, upVoteFlg) => {
@@ -61,6 +62,24 @@ export const getCategories = newCategories => {
 
 
 //Posts
+export const addNewPost = (post) => {
+
+    return dispatch => {
+        addPost(post)
+            .then(result =>{
+                console.log(result);
+            })
+    }
+}
+
+
+export const addPostFromServer = (post) => {
+    return {
+        type: ADD_POST_FROM_SERVER,
+        post
+    }
+}
+
 export const getAllPosts = () => {
     
     return dispatch => {

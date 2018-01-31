@@ -75,3 +75,11 @@
 .sort-chip {
   margin: 4px !important;
 }
+
+.addquestion-paper {
+  /* min-height: 400px; */
+  width: 90%;
+  margin: auto;
+  text-align: 'center';
+  display: 'inline-block';
+}

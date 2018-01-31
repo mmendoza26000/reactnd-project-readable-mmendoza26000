@@ -8,8 +8,9 @@ import { sortBy } from 'lodash';
 import SortSelector from './SortSelector';
 
 import AppBar from 'material-ui/AppBar';
+import RaisedButton from 'material-ui/RaisedButton';
 
-const App = ({categories, categoryName, posts}) =>  {
+const App = ({categories, categoryName, posts, history}) =>  {
 
     return (
       <div>
@@ -18,6 +19,13 @@ const App = ({categories, categoryName, posts}) =>  {
 
         <CategorySelector categories={categories} />
         <SortSelector />
+        <RaisedButton 
+                            label="Add New Post" 
+                            fullWidth={false}
+                            primary={true} 
+                            style={{ margin: '50px', display: 'block' }}
+                            onClick={ () => { history.push('/addPost/' + categoryName ) } }
+                        />
         <ListPosts posts={posts} />
       </div>
     );

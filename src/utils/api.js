@@ -3,6 +3,19 @@ const headers = {
     'Authorization': 'myToken'
   }
 
+//Add new Post
+export function addPost(post){
+  return fetch(`http://localhost:3001/posts`, {
+      method: 'POST',
+      headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(post)
+    }
+  )
+  .then( res => res.json())
+}
 
 //Upvotes a single post
 export function changePostVote(postId, voteType){
