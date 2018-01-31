@@ -67,7 +67,7 @@ export const addNewPost = (post) => {
     return dispatch => {
         addPost(post)
             .then(result =>{
-                console.log(result);
+                dispatch(addPostFromServer(result));
             })
     }
 }
