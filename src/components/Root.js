@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import App from './App';
 import AddPost from './AddPost';
+import EditPost from './EditPost';
 import { getAllCategories, getAllPosts } from '../actions';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -22,6 +23,7 @@ const Root = ({store}) => {
                     <div>
                         <Route exact path="/:categoryName?" component={App} />
                         <Route path="/addPost/:categoryName" component={AddPost} />
+                        <Route path="/editPost/:postId" component={EditPost} />
                     </div>
                 </Router>
             </MuiThemeProvider>

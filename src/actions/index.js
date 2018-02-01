@@ -1,10 +1,17 @@
-import { fetchCategories, fetchPosts, changePostVote, addPost } from '../utils/api';
+import { 
+    fetchCategories, 
+    fetchPosts, 
+    changePostVote, 
+    addPost,
+    saveEditedPost
+} from '../utils/api';
 
 //Posts
 export const UP_VOTE_POST = 'upVote';
 export const DOWN_VOTE_POST = 'downVote';
 export const SET_VOTE_SCORE = 'SET_VOTE_SCORE';
 export const ADD_POST_FROM_SERVER = 'ADD_POST_FROM_SERVER';
+export const UPDATE_POST = 'UPDATE_POST';
 
 
 export const votePost = (postId, upVoteFlg) => {
@@ -38,8 +45,6 @@ export const setSortField = sortField => {
     }
 }
 
-
-//Fetching
 //Categories
 export const getAllCategories = () => {
     
@@ -62,6 +67,23 @@ export const getCategories = newCategories => {
 
 
 //Posts
+export const savePost = (post) => {
+
+    return dispatch => {
+        saveEditedPost(post)
+            .then(result => {
+                dispatch(updatePostFromServer(result));
+            })
+    }
+}
+
+export const updatePostFromServer = (post) => {
+    return {
+        type: UPDATE_POST,
+        post
+    }
+}
+
 export const addNewPost = (post) => {
 
     return dispatch => {

@@ -3,6 +3,20 @@ const headers = {
     'Authorization': 'myToken'
   }
 
+//Update post to the serve
+export function saveEditedPost(post){
+  return fetch(`http://localhost:3001/posts/${post.id}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(post)
+  }
+)
+.then( res => res.json())
+}
+
 //Add new Post
 export function addPost(post){
   return fetch(`http://localhost:3001/posts`, {

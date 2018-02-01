@@ -8,72 +8,61 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import uuidv1 from 'uuid/v1';
 
-import { addNewPost } from '../actions';
+import { savePost } from '../actions';
 
 
 import { connect } from 'react-redux';
 
 
-class AddPost extends Component {
+class EditPost extends Component {
 
     state = {
         titleString: '',
-        authorString: '',
         bodyString: '',
-        categoryString: ''
+        titleEdited: false,
+        bodyEdited: false
     }
 
-    submitPost = () => {
-        const { history, selectedCategory } = this.props;
-        let post = {
-            id: uuidv1(),
-            timestamp: Date.now(),
-            title: this.state.titleString,
-            body: this.state.bodyString,
-            author: this.state.authorString,
-            category: selectedCategory === 'ALL_POSTS' ? this.state.categoryString : selectedCategory
+    savePost = () => {
+        const { history, post } = this.props;
+
+        const newTitle = this.state.titleEdited ? this.state.titleString : post.title;
+        const newBody = this.state.bodyEdited ? this.state.bodyString : post.body;
+
+        let editedPost = {
+            id: post.id,
+            title: newTitle,
+            body: newBody
         };
-        this.props.addNewPost(post);
-        history.push('/'+ (selectedCategory==='ALL_POSTS'?'':selectedCategory)) ;
+        this.props.savePost(editedPost);
+        history.goBack();
             
     }
 
     render(){
 
-        const { history, categories, selectedCategory } = this.props;
+        const { history, post } = this.props;
 
         const iconButtonLeft = <IconButton>
                                     <NavigationClose
                                     onClick={(event)=>{
                                         event.preventDefault();
-                                        history.push('/'+ (selectedCategory==='ALL_POSTS'?'':selectedCategory));
+                                        history.goBack();
                                         }
                                     }
                                     />
                                 </IconButton>
 
         let disableSubmitBtn = true;
-
-        if(selectedCategory === 'ALL_POSTS'){
-            if( this.state.titleString.length > 0 
-                && this.state.authorString.length > 0
-                && this.state.bodyString.length > 0
-                && this.state.categoryString.length > 0    ){
+            if( (this.state.titleString.length > 0 
+                && this.state.bodyString.length > 0)
+                || this.state.titleEdited || this.state.bodyEdited ){
                     disableSubmitBtn = false;
                 } else {
                     disableSubmitBtn =true;
-                }
-            } else {
-                if( this.state.titleString.length > 0 
-                    && this.state.authorString.length > 0
-                    && this.state.bodyString.length > 0 ){
-                        disableSubmitBtn = false;
-                    } else {
-                        disableSubmitBtn =true;
-                    }  
-            }
+                }  
+
         
 
 
@@ -81,7 +70,7 @@ class AddPost extends Component {
             <div>
                 <AppBar 
                     style={{position:'fixed'}}
-                    title="Add New Post" 
+                    title="Edit Post" 
                     iconElementLeft={iconButtonLeft}
                 />
                 <div style={{height: '100px'}}> </div>
@@ -89,61 +78,64 @@ class AddPost extends Component {
                 <Paper className='addpost-paper' zDepth={5} >
 
                     <div style={{margin: '30px', padding : '10px'}}>
-                        All fields are required:
+                        
                         <TextField
+                            defaultValue={post.title}
                             style={{marginTop: '30px'}}
                             fullWidth={true}
-                            
                             floatingLabelText="Title"
                             multiLine={true}
                             rows={1}
                             rowsMax={4}
                             onChange={(e,newValue)=>{
-                                this.setState(()=>({titleString: newValue}))
+                                this.setState(()=>({
+                                    titleString: newValue,
+                                    titleEdited: true
+                                }))
                             }}
                         />
 
                         <TextField
+                            disabled={true}
+                            defaultValue={post.author}
                             style={{marginTop: '30px'}}
                             fullWidth={true}
-                            
                             floatingLabelText="Author"
                             multiLine={true}
                             rows={1}
                             rowsMax={4}
-                            onChange={(e,newValue)=>{
-                                this.setState(()=>({authorString: newValue}))
-                            }}
                         />
 
                         <TextField
                             style={{marginTop: '30px'}}
                             fullWidth={true}
-                            
+                            defaultValue={post.body}
                             floatingLabelText="Content"
                             multiLine={true}
                             rows={4}
                             rowsMax={8}
                             onChange={(e,newValue)=>{
-                                this.setState(()=>({bodyString: newValue}))
+                                this.setState(()=>({
+                                    bodyString: newValue,
+                                    bodyEdited: true
+                                }))
                             }}
                         />
 
                         <SelectField
-                                value={ selectedCategory === 'ALL_POSTS'? this.state.categoryString : selectedCategory }
+                                value={post.category}
                                 floatingLabelText="Category"
-                                disabled={ !(selectedCategory === 'ALL_POSTS') }
-                                onChange={(event, index, value) => this.setState({categoryString: value})}
+                                disabled={true}
                                 >
-                                { categories.map( (cat, index) => <MenuItem key={index} value={cat.name} primaryText={cat.name} /> ) }
+                                <MenuItem key={post.category} value={post.category} primaryText={post.category} />
                         </SelectField>
 
                         <RaisedButton 
-                            label="Submit Post" 
+                            label="Save Post" 
                             disabled={disableSubmitBtn}
                             primary={true} 
                             style={{ margin: '30px', display: 'block' }}
-                            onClick={ this.submitPost }
+                            onClick={ this.savePost }
                         />
                     </div>
                 </Paper>
@@ -155,17 +147,20 @@ class AddPost extends Component {
 
 }
 
-function mapStateToProps({ categories }, ownProps){
+function mapStateToProps({ posts }, ownProps){
+    const postId = ownProps.match.params.postId;
+    const post = posts.filter(post => postId === post.id)
+
     return({
-        selectedCategory: ownProps.match.params.categoryName,
-        categories
+        postId,
+        post: post[0]
     })
 }
 
 function mapDispatchToProps( dispatch ){
     return{
-        addNewPost: (post) => {dispatch(addNewPost(post))}
+        savePost: (post) => {dispatch(savePost(post))}
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddPost);
+export default connect(mapStateToProps, mapDispatchToProps)(EditPost);
