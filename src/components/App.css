@@ -25,6 +25,12 @@
   color: gray;
 }
 
+.post-body {
+  padding: 50px;
+  margin: auto;
+  background-color: azure;
+}
+
 .post-commentcontainer {
  
   display: flex;

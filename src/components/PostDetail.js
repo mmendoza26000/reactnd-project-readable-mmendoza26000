@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
 
 import AppBar from 'material-ui/AppBar';
-import NavigationClose from 'material-ui/svg-icons/navigation/close.js';
+import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back.js';
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import InsertComment from 'material-ui/svg-icons/editor/insert-comment';
+import Divider from 'material-ui/Divider';
+
 
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { votePost, deletePost } from '../actions';
+import ScoreDisplay from './ScoreDisplay';
+import PostMoreMenu from './PostMoreMenu';
+
 
 
 class PostDetail extends Component {
@@ -18,13 +26,29 @@ class PostDetail extends Component {
 
     }
 
+    deletePostAndNavigate = (postId) => {
+        
+        const { history, categoryName, deletePost } = this.props;
+        deletePost(postId);
+        history.push('/'+ categoryName);
+    }
 
     render(){
 
-        const { history, postId, post, categoryName } = this.props;
+        const { history, postId, post, categoryName, initialFetchingDone,
+                upVotePost, downVotePost, deletePost } = this.props;
+
+        const postExists = post !== undefined;
+
+        const scoreDisplay = postExists && <ScoreDisplay 
+            upVotePost={upVotePost}
+            downVotePost={downVotePost}
+            voteScore={post.voteScore}
+            postId={post.id}
+         />
 
         const iconButtonLeft = <IconButton>
-                                    <NavigationClose
+                                    <NavigationArrowBack
                                     onClick={(event)=>{
                                         event.preventDefault();
                                         history.push('/' + categoryName);
@@ -32,6 +56,8 @@ class PostDetail extends Component {
                                     }
                                     />
                                 </IconButton>
+
+        
 
         return(
             <div>
@@ -42,7 +68,39 @@ class PostDetail extends Component {
                 />
                 <div style={{height: '100px'}}> </div>
 
-                <div>PostDetail!! -- {post.title}</div>
+                { !initialFetchingDone && (<div>Fetching...</div>)}
+                { initialFetchingDone && !postExists && (
+                    <div>
+                        <div>The post you requested does not exist!</div>
+                        <div>Please verify your URL and/or update your bookmarks.</div>
+                    </div>
+                )}
+
+                { initialFetchingDone && postExists && (
+                <Paper className='addpost-paper' zDepth={5} >
+                    <div className="post-listitem" >
+                        
+                        {scoreDisplay}
+                        <div className="post-infocontainer">
+                            <div className="post-title">
+                                <Link to={'/'+ post.category + '/' + post.id}>
+                                    {post.title}
+                                </Link>
+                            </div>
+                            <div className="post-author">{post.author}</div>
+                        </div>
+                        <div className="post-commentcontainer">
+                            <InsertComment /> {post.commentCount}
+                        </div>
+                        <div className="post-morevertmenucontainer">
+                            <PostMoreMenu postId={post.id} deletePost={this.deletePostAndNavigate} />
+                        </div>
+                    
+                    </div>
+                    <Divider />
+                    <div className="post-body">{post.body}</div>
+                </Paper>
+                )}
 
             </div>
         )
@@ -50,23 +108,25 @@ class PostDetail extends Component {
 
 }
 
-function mapStateToProps({ posts }, ownProps){
+function mapStateToProps({ posts, initialFetching }, ownProps){
     const postId = ownProps.match.params.postId;
     const categoryName = ownProps.match.params.categoryName;
-    console.log(posts);
     const post = posts.filter(post => postId === post.id)
 
     return({
         postId,
         post: post[0],
-        categoryName
+        categoryName,
+        initialFetchingDone: initialFetching
     })
 }
 
-function mapDispatchToProps( dispatch ){
-    return{
-        
+function mapDispatchToProps(dispatch) {
+    return {
+        upVotePost: (postId) => dispatch(votePost(postId, true)),
+        downVotePost: (postId) => dispatch(votePost(postId, false)),
+        deletePost: (postId) => dispatch(deletePost(postId))
     }
 }
 
-export default connect(mapStateToProps)(PostDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);

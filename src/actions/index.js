@@ -118,6 +118,7 @@ export const getAllPosts = () => {
     return dispatch => {
         fetchPosts().then( result => {
             dispatch(getPosts(result));
+            dispatch(gotInitialPosts());
         } )
     }
 }
@@ -129,5 +130,15 @@ export const getPosts = newPosts => {
     return {
         type: GET_POSTS,
         posts : newPosts
+    }
+}
+
+export const GOT_INITIAL_POSTS = 'GOT_INITIAL_POSTS';
+
+export const gotInitialPosts = () =>{
+
+    return {
+        type: GOT_INITIAL_POSTS,
+        flag: true
     }
 }
