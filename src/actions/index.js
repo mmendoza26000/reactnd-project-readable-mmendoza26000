@@ -31,8 +31,6 @@ export const voteComment = (commentId, upVoteFlg) => {
     return dispatch => {
         changeCommentVote(commentId, voteType)
             .then( res => 
-                // dispatch(setVoteScore(postId, res.voteScore))
-                // console.log('commentVote', res)
                 dispatch(updateCommentFromServer(res))
             )
     }

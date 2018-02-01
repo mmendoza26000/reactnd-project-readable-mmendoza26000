@@ -5,6 +5,7 @@ import Comment from './Comment';
 import Paper from 'material-ui/Paper';
 import {List} from 'material-ui/List';
 import CommentAdd from './CommentAdd';
+import { sortBy } from 'lodash';
 
 class PostComments extends Component {
 
@@ -17,7 +18,7 @@ class PostComments extends Component {
         const { post, comments, fetchingComments } = this.props;
         return(
             <Paper className='addpost-paper' zDepth={5} >
-                Comments ({post.commentCount} total):
+                Comments ({post.commentCount} total) ordered by score:
                 <CommentAdd postId={post.id} />
                 <List>
                     { !fetchingComments && 
@@ -32,7 +33,7 @@ class PostComments extends Component {
 
 function mapStateToProps( { currentPostComments }, ownProps){
     return {
-        comments: currentPostComments.comments,
+        comments: sortBy(currentPostComments.comments, ['voteScore']).reverse(),
         fetchingComments: currentPostComments.fetchingComments,
         post: ownProps.post
     }
