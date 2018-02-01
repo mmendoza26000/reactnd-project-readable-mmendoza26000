@@ -8,7 +8,8 @@ import {
     fetchCommentsFromServer,
     updateCommentToServer,
     addCommentToServer,
-    fetchSinglePost
+    fetchSinglePost,
+    deleteCommentOnServer
 } from '../utils/api';
 
 
@@ -17,6 +18,25 @@ export const START_FETCH_COMMENTS = 'START_FETCH_COMMENTS';
 export const FINISH_FETCH_COMMENTS = 'FINISH_FETCH_COMMENTS';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const ADD_COMMENT = 'ADD_COMMENT';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
+
+export const deleteComment = (commentId) => {
+
+    return dispatch => {
+        deleteCommentOnServer(commentId)
+            .then( res => {
+                dispatch(deleteCommentFromServer(res.id));
+                dispatch(getSinglePost(res.parentId));
+            })
+    }
+}
+
+export const deleteCommentFromServer = (commentId) => {
+    return {
+        type: DELETE_COMMENT,
+        commentId
+    }
+}
 
 export const addComment = (comment) => {
 

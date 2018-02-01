@@ -3,7 +3,8 @@ import {
     START_FETCH_COMMENTS, 
     FINISH_FETCH_COMMENTS, 
     UPDATE_COMMENT, 
-    ADD_COMMENT
+    ADD_COMMENT,
+    DELETE_COMMENT
 } from '../actions';  
 
 const currentPostCommentsInitialState = { 
@@ -14,6 +15,12 @@ const currentPostCommentsInitialState = {
 
 const currentPostComments = ( state = currentPostCommentsInitialState, action) => {
     switch(action.type){
+
+        case DELETE_COMMENT:
+            return{
+                ...state,
+                comments: state.comments.filter(comment => comment.id !== action.commentId)
+            }
 
         case ADD_COMMENT:
             return {

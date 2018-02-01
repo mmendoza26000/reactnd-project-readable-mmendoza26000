@@ -3,6 +3,18 @@ const headers = {
     'Authorization': 'myToken'
   }
 
+//delete comment on server
+export function deleteCommentOnServer(commentId){
+  return fetch(`http://localhost:3001/comments/${commentId}`, {
+    method: 'DELETE',
+    headers: {
+      ...headers
+    }
+  }
+)
+.then( res => res.json())
+}
+
 //Fetch single post
 export function fetchSinglePost(postId){
   return fetch(`http://localhost:3001/posts/${postId}`, { headers })

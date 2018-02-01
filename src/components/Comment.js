@@ -6,7 +6,7 @@ import Edit from  'material-ui/svg-icons/image/edit';
 import Delete from  'material-ui/svg-icons/action/delete';
 import FlatButton from 'material-ui/FlatButton';
 import Divider from 'material-ui/Divider';
-import { updateComment } from '../actions';
+import { updateComment, deleteComment } from '../actions';
 
 
 
@@ -33,7 +33,7 @@ class Comment extends Component {
     }
 
     render(){
-        const { comment } = this.props;
+        const { comment, deleteComment } = this.props;
         const { editing } = this.state;
 
         
@@ -44,7 +44,7 @@ class Comment extends Component {
                     <ListItem>
                         {comment.body}
                         <Edit onClick={()=>this.setState({editing: true})} />
-                        <Delete />
+                        <Delete onClick={() => deleteComment(comment.id)} />
                     </ListItem>
                 </div>
             )
@@ -89,7 +89,8 @@ function mapsStateToProps(state, ownProps){
 
 function mapDispatchToProps(dispatch){
     return{
-        submitEditedComment: (editedComment) => { dispatch(updateComment(editedComment)) }
+        submitEditedComment: (editedComment) => { dispatch(updateComment(editedComment)) },
+        deleteComment: (commentId) => { dispatch(deleteComment(commentId)) }
     }
 }
 
