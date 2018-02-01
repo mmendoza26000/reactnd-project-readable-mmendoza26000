@@ -6,7 +6,9 @@ import {
     saveEditedPost,
     deleteSinglePost,
     fetchCommentsFromServer,
-    updateCommentToServer
+    updateCommentToServer,
+    addCommentToServer,
+    fetchSinglePost
 } from '../utils/api';
 
 
@@ -14,6 +16,25 @@ import {
 export const START_FETCH_COMMENTS = 'START_FETCH_COMMENTS';
 export const FINISH_FETCH_COMMENTS = 'FINISH_FETCH_COMMENTS';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
+export const ADD_COMMENT = 'ADD_COMMENT';
+
+export const addComment = (comment) => {
+
+    return dispatch => {
+        addCommentToServer(comment)
+            .then( res=> {
+                dispatch(addCommentFromServer(res));
+                dispatch(getSinglePost(res.parentId));
+            })
+    }
+}
+
+export const addCommentFromServer = (comment) => {
+    return {
+        type: ADD_COMMENT,
+        comment
+    }
+}
 
 export const updateComment = (comment) => {
     
@@ -122,6 +143,16 @@ export const getCategories = newCategories => {
 
 
 //Posts
+export const getSinglePost = (postId) => {
+
+    return dispatch => {
+        fetchSinglePost(postId)
+            .then( res => 
+                dispatch(updatePostFromServer(res))
+            )
+    }
+}
+
 export const deletePost = (postId) => {
     
     return dispatch => {

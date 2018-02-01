@@ -3,6 +3,25 @@ const headers = {
     'Authorization': 'myToken'
   }
 
+//Fetch single post
+export function fetchSinglePost(postId){
+  return fetch(`http://localhost:3001/posts/${postId}`, { headers })
+  .then( res  => res.json())
+}
+//Add comment to server
+export function addCommentToServer(comment){
+  return fetch(`http://localhost:3001/comments`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(comment)
+  }
+)
+.then( res => res.json())
+}
+
 //Update comment to server
 export function updateCommentToServer(comment){
   return fetch(`http://localhost:3001/comments/${comment.id}`, {

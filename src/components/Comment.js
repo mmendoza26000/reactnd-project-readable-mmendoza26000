@@ -8,6 +8,7 @@ import Divider from 'material-ui/Divider';
 import { updateComment } from '../actions';
 
 
+
 class Comment extends Component {
 
     state={

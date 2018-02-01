@@ -4,6 +4,7 @@ import { fetchComments } from '../actions';
 import Comment from './Comment';
 import Paper from 'material-ui/Paper';
 import {List} from 'material-ui/List';
+import CommentAdd from './CommentAdd';
 
 class PostComments extends Component {
 
@@ -16,7 +17,8 @@ class PostComments extends Component {
         const { post, comments, fetchingComments } = this.props;
         return(
             <Paper className='addpost-paper' zDepth={5} >
-                Showing all {post.commentCount} comments:
+                Comments ({post.commentCount} total):
+                <CommentAdd postId={post.id} />
                 <List>
                     { !fetchingComments && 
                         comments.map(comment => <Comment key={comment.id} comment={comment} /> )}

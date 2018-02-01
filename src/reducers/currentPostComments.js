@@ -1,5 +1,10 @@
 
-import { START_FETCH_COMMENTS, FINISH_FETCH_COMMENTS, UPDATE_COMMENT } from '../actions';  
+import { 
+    START_FETCH_COMMENTS, 
+    FINISH_FETCH_COMMENTS, 
+    UPDATE_COMMENT, 
+    ADD_COMMENT
+} from '../actions';  
 
 const currentPostCommentsInitialState = { 
             currentPostId: '', 
@@ -9,6 +14,12 @@ const currentPostCommentsInitialState = {
 
 const currentPostComments = ( state = currentPostCommentsInitialState, action) => {
     switch(action.type){
+
+        case ADD_COMMENT:
+            return {
+                ...state,
+                comments: [...state.comments, action.comment]
+            }
 
         case UPDATE_COMMENT:
             return {
