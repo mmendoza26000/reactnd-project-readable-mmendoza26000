@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { votePost, deletePost } from '../actions';
 import { ListItem } from 'material-ui/List';
 import ScoreDisplay from './ScoreDisplay';
@@ -31,7 +32,11 @@ const Post = ({post, upVotePost, downVotePost, deletePost}) => {
                     
                     {scoreDisplay}
                     <div className="post-infocontainer">
-                        <div className="post-title">{post.title}</div>
+                        <div className="post-title">
+                            <Link to={'/'+ post.category + '/' + post.id}>
+                                 {post.title}
+                            </Link>
+                        </div>
                         <div className="post-author">{post.author}</div>
                     </div>
                     <div className="post-commentcontainer">
