@@ -32,7 +32,7 @@ class PostDetail extends Component {
 
     render(){
 
-        const { history, post, categoryName, initialFetchingDone,
+        const { history, post, /* categoryName,*/ initialFetchingDone,
                 upVotePost, downVotePost } = this.props;
 
         const postExists = post !== undefined;
@@ -48,7 +48,8 @@ class PostDetail extends Component {
                                     <NavigationArrowBack
                                     onClick={(event)=>{
                                         event.preventDefault();
-                                        history.push('/' + categoryName);
+                                        // history.push('/' + categoryName);
+                                        history.goBack();
                                         }
                                     }
                                     />
