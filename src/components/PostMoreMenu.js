@@ -16,7 +16,7 @@ const PostMoreMenu = ({postId, deletePost}) => (
       anchorOrigin={{horizontal: 'right', vertical: 'top'}}
     >
       <MenuItem >
-        <Link to={'/editPost/'+postId}>Edit post</Link>
+        <Link to={'/edit/post/'+postId}>Edit post</Link>
       </MenuItem>
       <MenuItem 
         primaryText="Delete post" 

@@ -24,7 +24,7 @@ const App = ({categories, categoryName, posts, history}) =>  {
                             fullWidth={false}
                             primary={true} 
                             style={{ margin: '50px', display: 'block' }}
-                            onClick={ () => { history.push('/addPost/' + categoryName ) } }
+                            onClick={ () => { history.push('/add/post/' + categoryName ) } }
                         />
         <ListPosts posts={posts} />
       </div>

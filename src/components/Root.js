@@ -23,9 +23,9 @@ const Root = ({store}) => {
                 <Router>
                     <div>
                         <Route exact path="/:categoryName?" component={App} />
-                        <Route path="/addPost/:categoryName" component={AddPost} />
-                        <Route path="/editPost/:postId" component={EditPost} />
-                        <Route path="/:categoryName/:postId" component={PostDetail} />
+                        <Route path="/add/post/:categoryName" component={AddPost} />
+                        <Route path="/edit/post/:postId" component={EditPost} />
+                        <Route exact path="/:categoryName/:postId" component={PostDetail} />
                     </div>
                 </Router>
             </MuiThemeProvider>
