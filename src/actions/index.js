@@ -9,7 +9,8 @@ import {
     updateCommentToServer,
     addCommentToServer,
     fetchSinglePost,
-    deleteCommentOnServer
+    deleteCommentOnServer,
+    changeCommentVote
 } from '../utils/api';
 
 
@@ -19,6 +20,23 @@ export const FINISH_FETCH_COMMENTS = 'FINISH_FETCH_COMMENTS';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const UP_VOTE_COMMENT = 'upVote';
+export const DOWN_VOTE_COMMENT = 'downVote';
+
+
+export const voteComment = (commentId, upVoteFlg) => {
+
+    const voteType = upVoteFlg ? UP_VOTE_COMMENT : DOWN_VOTE_COMMENT;
+
+    return dispatch => {
+        changeCommentVote(commentId, voteType)
+            .then( res => 
+                // dispatch(setVoteScore(postId, res.voteScore))
+                // console.log('commentVote', res)
+                dispatch(updateCommentFromServer(res))
+            )
+    }
+}
 
 export const deleteComment = (commentId) => {
 

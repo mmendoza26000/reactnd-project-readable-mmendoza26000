@@ -6,7 +6,8 @@ import Edit from  'material-ui/svg-icons/image/edit';
 import Delete from  'material-ui/svg-icons/action/delete';
 import FlatButton from 'material-ui/FlatButton';
 import Divider from 'material-ui/Divider';
-import { updateComment, deleteComment } from '../actions';
+import { updateComment, deleteComment, voteComment } from '../actions';
+import ScoreDisplay from './ScoreDisplay';
 
 
 
@@ -33,18 +34,38 @@ class Comment extends Component {
     }
 
     render(){
-        const { comment, deleteComment } = this.props;
+        const { comment, deleteComment, upVote, downVote } = this.props;
         const { editing } = this.state;
 
         
         if( !editing ){
+
+            const scoreDisplay = <ScoreDisplay 
+                                    upVotePost={upVote}
+                                    downVotePost={downVote}
+                                    voteScore={comment.voteScore}
+                                    postId={comment.id}
+                                />
+
             return(
                 <div>
                     <Divider />
                     <ListItem>
-                        {comment.body}
-                        <Edit onClick={()=>this.setState({editing: true})} />
-                        <Delete onClick={() => deleteComment(comment.id)} />
+                        <div className='comment-listitem'>
+                            {scoreDisplay}
+
+
+                            <div className="post-infocontainer">
+                                 <div className="post-title">
+                                       {comment.body}
+                                 </div>
+                                <div className="post-author">{comment.author}</div>
+                            </div>
+
+
+                            <Edit onClick={()=>this.setState({editing: true})} />
+                            <Delete onClick={() => deleteComment(comment.id)} />
+                        </div>
                     </ListItem>
                 </div>
             )
@@ -90,7 +111,9 @@ function mapsStateToProps(state, ownProps){
 function mapDispatchToProps(dispatch){
     return{
         submitEditedComment: (editedComment) => { dispatch(updateComment(editedComment)) },
-        deleteComment: (commentId) => { dispatch(deleteComment(commentId)) }
+        deleteComment: (commentId) => { dispatch(deleteComment(commentId)) },
+        upVote: (commentId) =>  dispatch(voteComment(commentId, true)) ,
+        downVote: (commentId) =>  dispatch(voteComment(commentId, false)) 
     }
 }
 

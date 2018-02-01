@@ -3,6 +3,22 @@ const headers = {
     'Authorization': 'myToken'
   }
 
+//Upvotes or downvotes a comment
+export function changeCommentVote(commentId, voteType){
+  return fetch(`http://localhost:3001/comments/${commentId}`, {
+      method: 'POST',
+      headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          option: voteType
+      })
+    }
+  )
+  .then( res => res.json() )
+}
+
 //delete comment on server
 export function deleteCommentOnServer(commentId){
   return fetch(`http://localhost:3001/comments/${commentId}`, {
@@ -103,7 +119,7 @@ export function addPost(post){
   .then( res => res.json())
 }
 
-//Upvotes a single post
+//Upvotes or downvotes a single post
 export function changePostVote(postId, voteType){
   return fetch(`http://localhost:3001/posts/${postId}`, {
       method: 'POST',
