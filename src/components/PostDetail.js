@@ -3,11 +3,7 @@ import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
 import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back.js';
 import IconButton from 'material-ui/IconButton';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 import InsertComment from 'material-ui/svg-icons/editor/insert-comment';
 import Divider from 'material-ui/Divider';
 
@@ -17,6 +13,7 @@ import { Link } from 'react-router-dom';
 import { votePost, deletePost } from '../actions';
 import ScoreDisplay from './ScoreDisplay';
 import PostMoreMenu from './PostMoreMenu';
+import PostComments from './PostComments';
 
 
 
@@ -35,8 +32,8 @@ class PostDetail extends Component {
 
     render(){
 
-        const { history, postId, post, categoryName, initialFetchingDone,
-                upVotePost, downVotePost, deletePost } = this.props;
+        const { history, post, categoryName, initialFetchingDone,
+                upVotePost, downVotePost } = this.props;
 
         const postExists = post !== undefined;
 
@@ -77,6 +74,7 @@ class PostDetail extends Component {
                 )}
 
                 { initialFetchingDone && postExists && (
+                <div>
                 <Paper className='addpost-paper' zDepth={5} >
                     <div className="post-listitem" >
                         
@@ -100,6 +98,12 @@ class PostDetail extends Component {
                     <Divider />
                     <div className="post-body">{post.body}</div>
                 </Paper>
+                <div style={{height: '40px'}}></div>
+
+                    <PostComments post={post}/>
+
+                </div>
+
                 )}
 
             </div>

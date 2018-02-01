@@ -89,3 +89,9 @@
   text-align: 'center';
   display: 'inline-block';
 }
+
+.editcomment {
+  background-color: lemonchiffon;
+  padding-top:  '30px' ;
+  padding-bottom: '50px';
+}

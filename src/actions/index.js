@@ -4,8 +4,62 @@ import {
     changePostVote, 
     addPost,
     saveEditedPost,
-    deleteSinglePost
+    deleteSinglePost,
+    fetchCommentsFromServer,
+    updateCommentToServer
 } from '../utils/api';
+
+
+//Comments
+export const START_FETCH_COMMENTS = 'START_FETCH_COMMENTS';
+export const FINISH_FETCH_COMMENTS = 'FINISH_FETCH_COMMENTS';
+export const UPDATE_COMMENT = 'UPDATE_COMMENT';
+
+export const updateComment = (comment) => {
+    
+    return dispatch => {
+        updateCommentToServer(comment)
+            .then( res => 
+                dispatch(updateCommentFromServer(res))
+            )
+    }
+}
+
+export const updateCommentFromServer = (comment) => {
+    return {
+        type: UPDATE_COMMENT,
+        comment
+    }
+}
+
+export const fetchComments = (postId) => {
+
+    return dispatch => {
+        dispatch(startFetchComments(postId));
+        fetchCommentsFromServer(postId)
+            .then( res => {
+                dispatch(finishFetchComments(res))
+            })
+    }
+}
+
+export const startFetchComments = (postId) => {
+    return {
+        type: START_FETCH_COMMENTS,
+        currentPostId: postId,
+        fetchingComments: true
+    }
+}
+
+export const finishFetchComments = (comments) => {
+    return {
+        type: FINISH_FETCH_COMMENTS,
+        fetchingComments: false,
+        comments
+    }
+}
+
+
 
 //Posts
 export const UP_VOTE_POST = 'upVote';
