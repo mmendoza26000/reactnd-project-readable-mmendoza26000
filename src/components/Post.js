@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 import { connect } from 'react-redux';
-import { votePost } from '../actions';
+import { votePost, deletePost } from '../actions';
 import { ListItem } from 'material-ui/List';
 import ScoreDisplay from './ScoreDisplay';
 import Divider from 'material-ui/Divider';
@@ -12,7 +12,7 @@ import InsertComment from 'material-ui/svg-icons/editor/insert-comment';
 
 import PostMoreMenu from './PostMoreMenu';
 
-const Post = ({post, upVotePost, downVotePost}) => {
+const Post = ({post, upVotePost, downVotePost, deletePost}) => {
 
     const scoreDisplay = <ScoreDisplay 
                                 upVotePost={upVotePost}
@@ -38,7 +38,7 @@ const Post = ({post, upVotePost, downVotePost}) => {
                         <InsertComment /> {post.commentCount}
                     </div>
                     <div className="post-morevertmenucontainer">
-                        <PostMoreMenu postId={post.id} />
+                        <PostMoreMenu postId={post.id} deletePost={deletePost} />
                     </div>
                     
                 </div>
@@ -50,7 +50,8 @@ const Post = ({post, upVotePost, downVotePost}) => {
 function mapDispatchToProps(dispatch) {
     return {
         upVotePost: (postId) => dispatch(votePost(postId, true)),
-        downVotePost: (postId) => dispatch(votePost(postId, false))
+        downVotePost: (postId) => dispatch(votePost(postId, false)),
+        deletePost: (postId) => dispatch(deletePost(postId))
     }
 }
 //onClick={(post.id) => upVotePost(postId)} 

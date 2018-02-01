@@ -3,6 +3,18 @@ const headers = {
     'Authorization': 'myToken'
   }
 
+//Delete post from server
+export function deleteSinglePost(postId){
+  return fetch(`http://localhost:3001/posts/${postId}`, {
+    method: 'DELETE',
+    headers: {
+      ...headers
+    }
+  }
+)
+.then( res => res.json())
+}
+
 //Update post to the serve
 export function saveEditedPost(post){
   return fetch(`http://localhost:3001/posts/${post.id}`, {

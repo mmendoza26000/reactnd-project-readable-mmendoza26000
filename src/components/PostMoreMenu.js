@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import { Link } from 'react-router-dom';
 
-const PostMoreMenu = ({postId}) => (
+const PostMoreMenu = ({postId, deletePost}) => (
     <IconMenu
       
       iconButtonElement={
@@ -18,12 +18,16 @@ const PostMoreMenu = ({postId}) => (
       <MenuItem >
         <Link to={'/editPost/'+postId}>Edit post</Link>
       </MenuItem>
-      <MenuItem primaryText="Delete post" />
+      <MenuItem 
+        primaryText="Delete post" 
+        onClick={ ()=> deletePost(postId) }  
+      />
     </IconMenu>
   );
 
   PostMoreMenu.propTypes = {
-      postId: PropTypes.string.isRequired
+      postId: PropTypes.string.isRequired,
+      deletePost: PropTypes.func.isRequired
   }
 
 export default PostMoreMenu;

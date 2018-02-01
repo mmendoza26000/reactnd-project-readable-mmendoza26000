@@ -34,7 +34,8 @@ const App = ({categories, categoryName, posts, history}) =>  {
 
 function mapStateToProps({categories, posts, sortCriteria}, ownProps){
     const categoryName = ownProps.match.params.categoryName || 'ALL_POSTS'
-    const filteredPosts = categoryName === 'ALL_POSTS' ? posts : posts.filter( post => post.category === categoryName )
+    const nonDeletedPosts = posts.filter( post => !post.deleted)
+    const filteredPosts = categoryName === 'ALL_POSTS' ? nonDeletedPosts : nonDeletedPosts.filter( post => post.category === categoryName )
     const orderedPosts = sortCriteria.orderAsc ?
                             sortBy(filteredPosts, [sortCriteria.field]) :
                             sortBy(filteredPosts, [sortCriteria.field]).reverse();

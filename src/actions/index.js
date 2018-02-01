@@ -3,7 +3,8 @@ import {
     fetchPosts, 
     changePostVote, 
     addPost,
-    saveEditedPost
+    saveEditedPost,
+    deleteSinglePost
 } from '../utils/api';
 
 //Posts
@@ -67,6 +68,16 @@ export const getCategories = newCategories => {
 
 
 //Posts
+export const deletePost = (postId) => {
+    
+    return dispatch => {
+        deleteSinglePost(postId)
+            .then( result => {
+                dispatch(updatePostFromServer(result));
+            })
+    }
+}
+
 export const savePost = (post) => {
 
     return dispatch => {
