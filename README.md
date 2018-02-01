@@ -23,7 +23,7 @@ You also need a working copy of a backend server. You can download and install U
 ```
 https://github.com/udacity/reactnd-project-readable-starter
 ```
-Please install and run using the instructions found in the URL above.
+Please install and run the server using the instructions found in the URL above.
 
 
 ### Installing
