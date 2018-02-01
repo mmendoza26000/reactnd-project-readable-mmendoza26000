@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { ListItem } from 'material-ui/List';
 import TextField from 'material-ui/TextField';
 import Edit from  'material-ui/svg-icons/image/edit';
+import Delete from  'material-ui/svg-icons/action/delete';
 import FlatButton from 'material-ui/FlatButton';
 import Divider from 'material-ui/Divider';
 import { updateComment } from '../actions';
@@ -20,11 +21,11 @@ class Comment extends Component {
         const { comment, submitEditedComment } = this.props;
 
         const editedComment = {
-            id: this.props.comment.id,
+            id: comment.id,
             timestamp: Date.now(),
             body: this.state.editedCommment
         }
-        this.props.submitEditedComment(editedComment);
+        submitEditedComment(editedComment);
         this.setState({
             editing: false,
             editedComment: ''
@@ -33,7 +34,7 @@ class Comment extends Component {
 
     render(){
         const { comment } = this.props;
-        const { editing, editedComment } = this.state;
+        const { editing } = this.state;
 
         
         if( !editing ){
@@ -43,6 +44,7 @@ class Comment extends Component {
                     <ListItem>
                         {comment.body}
                         <Edit onClick={()=>this.setState({editing: true})} />
+                        <Delete />
                     </ListItem>
                 </div>
             )
@@ -79,7 +81,7 @@ class Comment extends Component {
     }
 }
 
-function mapsStateToProps({}, ownProps){
+function mapsStateToProps(state, ownProps){
     return {
         comment: ownProps.comment
     }
